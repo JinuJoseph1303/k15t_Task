@@ -1,5 +1,6 @@
 package com.k15t.pat;
 
+
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.ServletProperties;
 import org.springframework.boot.SpringApplication;
@@ -12,9 +13,11 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 
+
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
+
 public class ApplicationBootstrap {
 
     public static void main(String[] args) {
@@ -35,8 +38,11 @@ public class ApplicationBootstrap {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName("forward:/registration.html");
+                registry.addViewController("/").setViewName("forward:/registerSuccessfulPage.html");
             }
         };
     }
+    
+    
 
 }

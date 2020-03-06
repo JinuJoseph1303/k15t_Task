@@ -10,20 +10,26 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.StringWriter;
 
 
+/**
+ * @author jjh2kor
+ *
+ */
 @RestController
 public class RegistrationController {
 
     @Autowired private VelocityEngine velocityEngine;
-
-
-    @RequestMapping("/registration.html")
+    
+       
+    @RequestMapping("/registration")
     public String registration() {
 
         Template template = velocityEngine.getTemplate("templates/registration.vm");
         VelocityContext context = new VelocityContext();
         StringWriter writer = new StringWriter();
         template.merge(context, writer);
-
+       
         return writer.toString();
+        
     }
+ 
 }
