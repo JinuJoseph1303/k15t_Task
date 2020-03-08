@@ -1,3 +1,4 @@
+
 function validate(){
 	
 	if (validateFirstName() && validateLastName() && validatePwd() && validateEmail() 
@@ -6,7 +7,7 @@ function validate(){
 		return true;
 	}
 	
-	return true;
+	return false;
 }
 
 function validateFirstName() {
@@ -48,7 +49,9 @@ function validateEmail() {
 	
 	var vEmail = $('#email').val();
 	//var pattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"	+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-	var pattern = "/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/";
+	//var pattern = new RegExp( "/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/");
+	
+	var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
 	if(vEmail ==  '' || !pattern.test(vEmail) ) {
 		
 		$('#email').css('border-color','red');
@@ -100,8 +103,9 @@ function validateConfirmPwd() {
 function validatePhoneNumber() {
 	
 	var vNum = $('#phoneNumber').val();
-	var pattern = new RegExp ("[1-9]{1}[0-9]{9}");
-	
+	var pattern = new RegExp (/^\d{10}$/);
+	if(vNum =="")
+		return true
 	if( !pattern.test(vNum)  ) {
 		
 		$('#phoneNumber').css('border-color','red');
@@ -118,7 +122,7 @@ function validatePhoneNumber() {
 function validateAddress() {
 	
 	var vAdd = $('#address').val();
-	var pattern = "/\d+\s+([a-zA-Z]+|[a-zA-Z]+\s[a-zA-Z]+)/";
+	var pattern = new RegExp (/^[#.0-9a-zA-Z\s,-]+$/);
 	
 	if(vAdd ==  '' || !pattern.test(vAdd)  ) {
 		
@@ -151,14 +155,22 @@ function validatePincode() {
 function validateCity() {
 	
 	var vCity = $('#city').val();
-	var pattern = new RegExp ("/\d+\s+([a-zA-Z]+|[a-zA-Z]+\s[a-zA-Z]+)/\.");
+	var pattern = new RegExp ("^[a-zA-Z]+(?:[\\s-][a-zA-Z]+)*$");
 	
-	if(vCity ==  '' || !pattern.test(vCity)  ) {
+	
+	if(vCity ==  '' )  {
 		
 		$('#city').css('border-color','red');
 		$('#error_city').html("Please enter a city name.");
 		return false;
-	} 
+		
+	} else if (!pattern.test(vCity)) {
+		$('#city').css('border-color','red');
+		$('#error_city').html("Please enter a city name.");
+		return false;
+		
+	}
+	
 	$('#city').css('border-color','black');
 	$('#error_city').html("");
 	return true;
